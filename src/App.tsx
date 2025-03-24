@@ -1,6 +1,7 @@
 import { Grid2 } from "@mui/material";
 import { useAuth } from "./hooks/useAuth";
 import { Login } from "./Login";
+import { Dogs } from "./Dogs";
 
 export const BaseUrl = "https://frontend-take-home-service.fetch.com";
 
@@ -17,7 +18,7 @@ function App() {
       size={12}
       direction="column"
     >
-      {isAuthenticated ? <>Placeholder</> : <Login handleLogin={handleLogin} />}
+      {isAuthenticated ? <Dogs /> : <Login handleLogin={handleLogin} />}
     </Grid2>
   );
 }

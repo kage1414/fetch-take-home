@@ -24,7 +24,6 @@ export const useAuth = () => {
     axios
       .post(BaseUrl + "/auth/login", { name, email }, { withCredentials: true })
       .then((res) => {
-        console.log(res);
         setStatus(res.status);
       })
       .catch((e) => {
@@ -36,7 +35,6 @@ export const useAuth = () => {
 
   useEffect(() => {
     if (status === 200) {
-      console.log("setting auth");
       setIsAuthenticated(true);
     } else {
       setIsAuthenticated(false);
