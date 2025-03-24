@@ -10,13 +10,10 @@ function App() {
 
   return (
     <Grid2
-      container
       height="100vh"
       width="100vw"
       alignContent="center"
       justifyContent="center"
-      size={12}
-      direction="column"
     >
       {isAuthenticated ? <Dogs /> : <Login handleLogin={handleLogin} />}
     </Grid2>

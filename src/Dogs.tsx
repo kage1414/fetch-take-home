@@ -31,7 +31,7 @@ export const Dogs = () => {
     axios
       .get(BaseUrl + "/dogs/search", {
         withCredentials: true,
-        params: { from: (page - 1) * PageSize },
+        params: { from: (page - 1) * PageSize, sort: "breed:asc" },
       })
       .then(({ data }) => {
         setDogIds(data.resultIds);
@@ -57,26 +57,39 @@ export const Dogs = () => {
 
   return (
     <>
-      <Grid2 container height="80%" overflow="scroll" width="100%">
-        <List>
-          {dogs.map((dog, idx) => (
-            <ListItem key={`${dog.id}-${idx}`}>
-              <Paper style={{ padding: 4 }}>
-                <Grid2 container direction="row" columnSpacing={8}>
-                  <Grid2 container>
-                    <img src={dog.img} style={{ maxWidth: 80 }} />
-                  </Grid2>
-                  <Grid2 container size={6} alignItems="center">
-                    <Typography variant="h5">{dog.name}</Typography>
-                    <Typography>{`Age: ${dog.age}`}</Typography>
-                    <Typography>{dog.breed}</Typography>
-                    <Typography>{dog.zip_code}</Typography>
-                  </Grid2>
-                </Grid2>
-              </Paper>
-            </ListItem>
-          ))}
-        </List>
+      <Grid2 container direction="row">
+        <Grid2 container width="20vw">
+          Hello
+        </Grid2>
+        <Grid2
+          container
+          overflow="scroll"
+          width="70vw"
+          height="80vh"
+          direction="column"
+        >
+          <Grid2 container direction="row">
+            <List>
+              {dogs.map((dog, idx) => (
+                <ListItem key={`${dog.id}-${idx}`}>
+                  <Paper style={{ padding: 4 }}>
+                    <Grid2 container direction="row" columnSpacing={8}>
+                      <Grid2 container>
+                        <img src={dog.img} style={{ maxWidth: 80 }} />
+                      </Grid2>
+                      <Grid2 container size={6} alignItems="center">
+                        <Typography variant="h5">{dog.name}</Typography>
+                        <Typography>{`Age: ${dog.age}`}</Typography>
+                        <Typography>{dog.breed}</Typography>
+                        <Typography>{dog.zip_code}</Typography>
+                      </Grid2>
+                    </Grid2>
+                  </Paper>
+                </ListItem>
+              ))}
+            </List>
+          </Grid2>
+        </Grid2>
       </Grid2>
       <Grid2>
         <Pagination
