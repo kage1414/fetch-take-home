@@ -1,35 +1,52 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Button, Grid2, TextField } from "@mui/material";
+import axios from "axios";
+import { useState } from "react";
+
+export const BaseUrl = "https://frontend-take-home-service.fetch.com";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+
+  const handleLogin = () => {
+    axios
+      .post(BaseUrl + "/auth/login", { name, email }, { withCredentials: true })
+      .then((res) => {
+        console.log(res);
+      });
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Grid2
+      container
+      height="100vh"
+      width="100vw"
+      alignContent="center"
+      justifyContent="center"
+      size={12}
+      direction="column"
+    >
+      <Grid2>
+        <TextField
+          label="Name"
+          onChange={(e) => {
+            setName(e.target.value);
+          }}
+        />
+      </Grid2>
+      <Grid2>
+        <TextField
+          label="Email"
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
+        />
+      </Grid2>
+      <Grid2>
+        <Button onClick={handleLogin}>Log In</Button>
+      </Grid2>
+    </Grid2>
+  );
 }
 
-export default App
+export default App;
