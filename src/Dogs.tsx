@@ -4,6 +4,7 @@ import {
   ListItem,
   Pagination,
   Paper,
+  Slider,
   Typography,
 } from "@mui/material";
 import axios from "axios";
@@ -32,7 +33,10 @@ export const Dogs = () => {
   const [sort, setSort] = useState<string>("breed:asc");
   const [zipCodes, setZipCodes] = useState<string[]>([]);
   const [currentZipCode, setCurrentZipCode] = useState("");
+  const [ageRange, setAgeRange] = useState([0, 15]);
+
   const debouncedPage = useDebounce(page, 300);
+  const debouncedAgeRange = useDebounce(ageRange, 300);
 
   const getDogIds = useCallback(() => {
     axios
@@ -43,13 +47,15 @@ export const Dogs = () => {
           sort,
           size: PageSize,
           zipCodes,
+          ageMin: debouncedAgeRange[0],
+          ageMax: debouncedAgeRange[1],
         },
       })
       .then(({ data }) => {
         setDogIds(data.resultIds);
         setCount(data.total);
       });
-  }, [debouncedPage, sort, zipCodes]);
+  }, [debouncedPage, sort, zipCodes, debouncedAgeRange]);
 
   const matchDogIds = useCallback(() => {
     axios
@@ -65,7 +71,7 @@ export const Dogs = () => {
 
   useEffect(() => {
     getDogIds();
-  }, [getDogIds, debouncedPage, sort, zipCodes]);
+  }, [getDogIds, debouncedPage, sort, zipCodes, debouncedAgeRange]);
 
   return (
     <>
@@ -78,6 +84,19 @@ export const Dogs = () => {
           rowSpacing={2}
         >
           <SortBy setSort={setSort} />
+          <Typography>{`Age: ${ageRange[0]} - ${ageRange[1]}`}</Typography>
+          <Slider
+            value={ageRange}
+            min={0}
+            max={15}
+            size="small"
+            valueLabelDisplay="auto"
+            onChange={(_, range) => {
+              if (Array.isArray(range)) {
+                setAgeRange(range);
+              }
+            }}
+          />
           <Zip
             currentZipCode={currentZipCode}
             zipCodes={zipCodes}
