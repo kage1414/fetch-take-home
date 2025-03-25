@@ -10,7 +10,6 @@ import axios from "axios";
 import { BaseUrl } from "./App";
 import { useCallback, useEffect, useState } from "react";
 import { SortBy } from "./Sort/Sort";
-import { Sort } from "./Sort/constants";
 import { useDebounce } from "@uidotdev/usehooks";
 
 interface Dog {
@@ -29,7 +28,7 @@ export const Dogs = () => {
   const [dogs, setDogs] = useState<Dog[]>([]);
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
-  const [sort, setSort] = useState<Sort>(Sort.BREED_ASC);
+  const [sort, setSort] = useState<string>("breed:asc");
   const debouncedPage = useDebounce(page, 300);
 
   const getDogIds = useCallback(() => {
@@ -64,7 +63,7 @@ export const Dogs = () => {
     <>
       <Grid2 container direction="row">
         <Grid2 container width="20vw">
-          <SortBy currentSort={sort} setSort={setSort} />
+          <SortBy setSort={setSort} />
         </Grid2>
         <Grid2
           container
