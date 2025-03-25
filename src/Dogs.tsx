@@ -1,6 +1,7 @@
 import {
   FormControl,
   Grid2,
+  IconButton,
   InputLabel,
   List,
   ListItem,
@@ -17,6 +18,7 @@ import { useCallback, useEffect, useState } from "react";
 import { SortBy } from "./Sort/Sort";
 import { useDebounce } from "@uidotdev/usehooks";
 import { Zip } from "./Zip";
+import ClearIcon from "@mui/icons-material/Clear";
 
 interface Dog {
   id: string;
@@ -123,6 +125,17 @@ export const Dogs = () => {
                   setSelectedBreeds(e.target.value);
                 }
               }}
+              endAdornment={
+                <IconButton
+                  size="small"
+                  onClick={() => {
+                    setSelectedBreeds([]);
+                  }}
+                  sx={{ marginRight: 1 }}
+                >
+                  <ClearIcon />
+                </IconButton>
+              }
             >
               {breeds.map((breed, idx) => (
                 <MenuItem value={breed} key={`${breed}-${idx}`}>
