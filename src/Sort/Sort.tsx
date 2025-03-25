@@ -1,6 +1,12 @@
 import { Dispatch, FC, useEffect, useState } from "react";
 import { Sort } from "./constants";
-import { IconButton, MenuItem, Select } from "@mui/material";
+import {
+  FormControl,
+  IconButton,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
@@ -17,16 +23,21 @@ export const SortBy: FC<SortProps> = ({ setSort }) => {
   });
   return (
     <div>
-      <Select
-        value={sortBy}
-        onChange={(e) => {
-          setSortBy(e.target.value as Sort);
-        }}
-      >
-        <MenuItem value={Sort.BREED}>Breed</MenuItem>
-        <MenuItem value={Sort.NAME}>Name</MenuItem>
-        <MenuItem value={Sort.AGE}>Age</MenuItem>
-      </Select>
+      <FormControl>
+        <InputLabel htmlFor="sort-by">Sort By</InputLabel>
+        <Select
+          id="sort-by"
+          value={sortBy}
+          onChange={(e) => {
+            setSortBy(e.target.value as Sort);
+          }}
+          label="Sort By"
+        >
+          <MenuItem value={Sort.BREED}>Breed</MenuItem>
+          <MenuItem value={Sort.NAME}>Name</MenuItem>
+          <MenuItem value={Sort.AGE}>Age</MenuItem>
+        </Select>
+      </FormControl>
       <IconButton
         onClick={() => {
           setDirection(direction === "asc" ? "desc" : "asc");
