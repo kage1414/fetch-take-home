@@ -1,9 +1,13 @@
 import {
+  FormControl,
   Grid2,
+  InputLabel,
   List,
   ListItem,
+  MenuItem,
   Pagination,
   Paper,
+  Select,
   Slider,
   Typography,
 } from "@mui/material";
@@ -34,6 +38,8 @@ export const Dogs = () => {
   const [zipCodes, setZipCodes] = useState<string[]>([]);
   const [currentZipCode, setCurrentZipCode] = useState("");
   const [ageRange, setAgeRange] = useState([0, 15]);
+  const [breeds, setBreeds] = useState<string[]>([]);
+  const [selectedBreeds, setSelectedBreeds] = useState<string[]>([]);
 
   const debouncedPage = useDebounce(page, 300);
   const debouncedAgeRange = useDebounce(ageRange, 300);
@@ -49,13 +55,14 @@ export const Dogs = () => {
           zipCodes,
           ageMin: debouncedAgeRange[0],
           ageMax: debouncedAgeRange[1],
+          breeds: selectedBreeds,
         },
       })
       .then(({ data }) => {
         setDogIds(data.resultIds);
         setCount(data.total);
       });
-  }, [debouncedPage, sort, zipCodes, debouncedAgeRange]);
+  }, [debouncedPage, sort, zipCodes, debouncedAgeRange, selectedBreeds]);
 
   const matchDogIds = useCallback(() => {
     axios
@@ -65,25 +72,65 @@ export const Dogs = () => {
       });
   }, [dogIds]);
 
+  const getBreeds = () => {
+    axios
+      .get(BaseUrl + "/dogs/breeds", { withCredentials: true })
+      .then(({ data }) => {
+        setBreeds(data);
+      });
+  };
+
   useEffect(() => {
     matchDogIds();
   }, [dogIds, matchDogIds]);
 
   useEffect(() => {
     getDogIds();
-  }, [getDogIds, debouncedPage, sort, zipCodes, debouncedAgeRange]);
+  }, [
+    getDogIds,
+    debouncedPage,
+    sort,
+    zipCodes,
+    debouncedAgeRange,
+    selectedBreeds,
+  ]);
+
+  useEffect(() => {
+    getBreeds();
+  }, []);
 
   return (
     <>
       <Grid2 container direction="row">
         <Grid2
           container
-          width="20vw"
+          maxWidth="20vw"
           direction="column"
           padding={4}
           rowSpacing={2}
         >
           <SortBy setSort={setSort} />
+          <FormControl>
+            <InputLabel htmlFor="breed-input">Breed</InputLabel>
+            <Select
+              id="breed-input"
+              label="Breed"
+              multiple
+              fullWidth
+              value={selectedBreeds}
+              onChange={(e) => {
+                if (Array.isArray(e.target.value)) {
+                  setSelectedBreeds(e.target.value);
+                }
+              }}
+            >
+              {breeds.map((breed, idx) => (
+                <MenuItem value={breed} key={`${breed}-${idx}`}>
+                  {breed}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
           <Typography>{`Age: ${ageRange[0]} - ${ageRange[1]}`}</Typography>
           <Slider
             value={ageRange}
