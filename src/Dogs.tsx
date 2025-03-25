@@ -11,6 +11,7 @@ import { BaseUrl } from "./App";
 import { useCallback, useEffect, useState } from "react";
 import { SortBy } from "./Sort/Sort";
 import { useDebounce } from "@uidotdev/usehooks";
+import { Zip } from "./Zip";
 
 interface Dog {
   id: string;
@@ -29,19 +30,26 @@ export const Dogs = () => {
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
   const [sort, setSort] = useState<string>("breed:asc");
+  const [zipCodes, setZipCodes] = useState<string[]>([]);
+  const [currentZipCode, setCurrentZipCode] = useState("");
   const debouncedPage = useDebounce(page, 300);
 
   const getDogIds = useCallback(() => {
     axios
       .get(BaseUrl + "/dogs/search", {
         withCredentials: true,
-        params: { from: (debouncedPage - 1) * PageSize, sort, size: PageSize },
+        params: {
+          from: (debouncedPage - 1) * PageSize,
+          sort,
+          size: PageSize,
+          zipCodes,
+        },
       })
       .then(({ data }) => {
         setDogIds(data.resultIds);
         setCount(data.total);
       });
-  }, [debouncedPage, sort]);
+  }, [debouncedPage, sort, zipCodes]);
 
   const matchDogIds = useCallback(() => {
     axios
@@ -57,13 +65,29 @@ export const Dogs = () => {
 
   useEffect(() => {
     getDogIds();
-  }, [getDogIds, debouncedPage, sort]);
+  }, [getDogIds, debouncedPage, sort, zipCodes]);
 
   return (
     <>
       <Grid2 container direction="row">
-        <Grid2 container width="20vw">
+        <Grid2
+          container
+          width="20vw"
+          direction="column"
+          padding={4}
+          rowSpacing={2}
+        >
           <SortBy setSort={setSort} />
+          <Zip
+            currentZipCode={currentZipCode}
+            zipCodes={zipCodes}
+            handleSetCurrentZipCode={(zipCode) => {
+              setCurrentZipCode(zipCode);
+            }}
+            handleSetZipCodes={(zipCodes) => {
+              setZipCodes(zipCodes);
+            }}
+          />
         </Grid2>
         <Grid2
           container
@@ -95,15 +119,17 @@ export const Dogs = () => {
           </Grid2>
         </Grid2>
       </Grid2>
-      <Grid2>
-        <Pagination
-          page={page}
-          count={Math.floor(count / PageSize)}
-          onChange={(_, page) => {
-            setPage(page);
-          }}
-        />
-      </Grid2>
+      {Math.floor(count / PageSize) > 0 && (
+        <Grid2>
+          <Pagination
+            page={page}
+            count={Math.floor(count / PageSize)}
+            onChange={(_, page) => {
+              setPage(page);
+            }}
+          />
+        </Grid2>
+      )}
     </>
   );
 };
