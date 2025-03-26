@@ -19,6 +19,8 @@ import { SortBy } from "./Sort/Sort";
 import { useDebounce } from "@uidotdev/usehooks";
 import { Zip } from "./Zip";
 import ClearIcon from "@mui/icons-material/Clear";
+import AddIcon from "@mui/icons-material/Add";
+import { findIndex } from "lodash";
 
 interface Dog {
   id: string;
@@ -42,6 +44,7 @@ export const Dogs = () => {
   const [ageRange, setAgeRange] = useState([0, 15]);
   const [breeds, setBreeds] = useState<string[]>([]);
   const [selectedBreeds, setSelectedBreeds] = useState<string[]>([]);
+  const [selectedDogs, setSelectedDogs] = useState<Dog[]>([]);
 
   const debouncedPage = useDebounce(page, 300);
   const debouncedAgeRange = useDebounce(ageRange, 300);
@@ -189,6 +192,25 @@ export const Dogs = () => {
                         <Typography>{`Age: ${dog.age}`}</Typography>
                         <Typography>{dog.breed}</Typography>
                         <Typography>{dog.zip_code}</Typography>
+                      </Grid2>
+                      <Grid2>
+                        <IconButton
+                          onClick={() => {
+                            const selectedDogIdx = findIndex(
+                              selectedDogs,
+                              (selectedDog) => selectedDog.id === dog.id
+                            );
+                            if (selectedDogIdx === -1) {
+                              setSelectedDogs([dog, ...selectedDogs]);
+                            } else {
+                              setSelectedDogs([
+                                ...selectedDogs.splice(selectedDogIdx),
+                              ]);
+                            }
+                          }}
+                        >
+                          <AddIcon />
+                        </IconButton>
                       </Grid2>
                     </Grid2>
                   </Paper>
