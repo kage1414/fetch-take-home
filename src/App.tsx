@@ -10,6 +10,7 @@ function App() {
 
   return (
     <Grid
+      container
       height="100vh"
       width="100vw"
       alignContent="center"

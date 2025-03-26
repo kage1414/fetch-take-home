@@ -11,8 +11,8 @@ export const Login: React.FC<LoginProps> = ({ handleLogin }) => {
   const [email, setEmail] = useState("");
 
   return (
-    <>
-      <Grid>
+    <Grid container item direction="column" alignContent="center">
+      <Grid item>
         <TextField
           label="Name"
           onChange={(e) => {
@@ -20,7 +20,7 @@ export const Login: React.FC<LoginProps> = ({ handleLogin }) => {
           }}
         />
       </Grid>
-      <Grid>
+      <Grid item>
         <TextField
           label="Email"
           onChange={(e) => {
@@ -28,7 +28,7 @@ export const Login: React.FC<LoginProps> = ({ handleLogin }) => {
           }}
         />
       </Grid>
-      <Grid>
+      <Grid item>
         <Button
           onClick={() => {
             handleLogin({ name, email });
@@ -37,6 +37,6 @@ export const Login: React.FC<LoginProps> = ({ handleLogin }) => {
           Log In
         </Button>
       </Grid>
-    </>
+    </Grid>
   );
 };
