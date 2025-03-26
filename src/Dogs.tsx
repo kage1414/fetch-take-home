@@ -1,6 +1,6 @@
 import {
   FormControl,
-  Grid2,
+  Grid,
   IconButton,
   InputLabel,
   List,
@@ -105,132 +105,158 @@ export const Dogs = () => {
   }, []);
 
   return (
-    <>
-      <Grid2 container direction="row">
-        <Grid2
-          container
-          maxWidth="20vw"
-          direction="column"
-          padding={4}
-          rowSpacing={2}
-        >
-          <SortBy setSort={setSort} />
-          <FormControl>
-            <InputLabel htmlFor="breed-input">Breed</InputLabel>
-            <Select
-              id="breed-input"
-              label="Breed"
-              multiple
-              fullWidth
-              value={selectedBreeds}
-              onChange={(e) => {
-                if (Array.isArray(e.target.value)) {
-                  setSelectedBreeds(e.target.value);
-                }
-              }}
-              endAdornment={
-                <IconButton
-                  size="small"
-                  onClick={() => {
-                    setSelectedBreeds([]);
-                  }}
-                  sx={{ marginRight: 1 }}
-                >
-                  <ClearIcon />
-                </IconButton>
-              }
-            >
-              {breeds.map((breed, idx) => (
-                <MenuItem value={breed} key={`${breed}-${idx}`}>
-                  {breed}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <Typography>{`Age: ${ageRange[0]} - ${ageRange[1]}`}</Typography>
-          <Slider
-            value={ageRange}
-            min={0}
-            max={15}
-            size="small"
-            valueLabelDisplay="auto"
-            onChange={(_, range) => {
-              if (Array.isArray(range)) {
-                setAgeRange(range);
+    <Grid container direction="row">
+      <Grid
+        container
+        item
+        direction="column"
+        padding={4}
+        rowSpacing={2}
+        columnSpacing={2}
+        xs={2}
+      >
+        <SortBy setSort={setSort} />
+        <FormControl style={{ width: "100%" }}>
+          <InputLabel htmlFor="breed-input">Breed</InputLabel>
+          <Select
+            id="breed-input"
+            label="Breed"
+            multiple
+            fullWidth
+            value={selectedBreeds}
+            onChange={(e) => {
+              if (Array.isArray(e.target.value)) {
+                setSelectedBreeds(e.target.value);
               }
             }}
-          />
-          <Zip
-            currentZipCode={currentZipCode}
-            zipCodes={zipCodes}
-            handleSetCurrentZipCode={(zipCode) => {
-              setCurrentZipCode(zipCode);
-            }}
-            handleSetZipCodes={(zipCodes) => {
-              setZipCodes(zipCodes);
-            }}
-          />
-        </Grid2>
-        <Grid2
-          container
-          overflow="scroll"
-          width="70vw"
-          height="80vh"
-          direction="column"
-        >
-          <Grid2 container direction="row">
-            <List>
-              {dogs.map((dog, idx) => (
-                <ListItem key={`${dog.id}-${idx}`}>
-                  <Paper style={{ padding: 4 }}>
-                    <Grid2 container direction="row" columnSpacing={8}>
-                      <Grid2 container>
+            endAdornment={
+              <IconButton
+                size="small"
+                onClick={() => {
+                  setSelectedBreeds([]);
+                }}
+                sx={{ marginRight: 1 }}
+              >
+                <ClearIcon />
+              </IconButton>
+            }
+          >
+            {breeds.map((breed, idx) => (
+              <MenuItem value={breed} key={`${breed}-${idx}`}>
+                {breed}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <Typography>{`Age: ${ageRange[0]} - ${ageRange[1]}`}</Typography>
+        <Slider
+          value={ageRange}
+          min={0}
+          max={15}
+          size="small"
+          valueLabelDisplay="auto"
+          onChange={(_, range) => {
+            if (Array.isArray(range)) {
+              setAgeRange(range);
+            }
+          }}
+        />
+        <Zip
+          currentZipCode={currentZipCode}
+          zipCodes={zipCodes}
+          handleSetCurrentZipCode={(zipCode) => {
+            setCurrentZipCode(zipCode);
+          }}
+          handleSetZipCodes={(zipCodes) => {
+            setZipCodes(zipCodes);
+          }}
+        />
+      </Grid>
+      <Grid container item direction="column" xs={5}>
+        <Grid container direction="row" overflow="scroll" height="80vh">
+          <List style={{ width: "100%" }}>
+            {dogs.map((dog, idx) => (
+              <ListItem key={`${dog.id}-${idx}`} style={{ width: "100%" }}>
+                <Paper style={{ padding: 4 }} sx={{ width: "100%" }}>
+                  <Grid container xs={12}>
+                    <Grid
+                      container
+                      item
+                      xs={11}
+                      direction="row"
+                      columnSpacing={8}
+                    >
+                      <Grid
+                        item
+                        container
+                        alignContent="center"
+                        justifyContent="center"
+                        xs={4}
+                      >
                         <img src={dog.img} style={{ maxWidth: 80 }} />
-                      </Grid2>
-                      <Grid2 container size={6} alignItems="center">
+                      </Grid>
+                      <Grid
+                        container
+                        item
+                        xs={7}
+                        direction="column"
+                        justifyContent="center"
+                      >
                         <Typography variant="h5">{dog.name}</Typography>
-                        <Typography>{`Age: ${dog.age}`}</Typography>
                         <Typography>{dog.breed}</Typography>
-                        <Typography>{dog.zip_code}</Typography>
-                      </Grid2>
-                      <Grid2>
-                        <IconButton
-                          onClick={() => {
-                            const selectedDogIdx = findIndex(
-                              selectedDogs,
-                              (selectedDog) => selectedDog.id === dog.id
-                            );
-                            if (selectedDogIdx === -1) {
-                              setSelectedDogs([dog, ...selectedDogs]);
-                            } else {
-                              setSelectedDogs([
-                                ...selectedDogs.splice(selectedDogIdx),
-                              ]);
-                            }
-                          }}
-                        >
-                          <AddIcon />
-                        </IconButton>
-                      </Grid2>
-                    </Grid2>
-                  </Paper>
-                </ListItem>
-              ))}
-            </List>
-          </Grid2>
-        </Grid2>
-      </Grid2>
-      {Math.floor(count / PageSize) > 0 && (
-        <Grid2>
-          <Pagination
-            page={page}
-            count={Math.floor(count / PageSize)}
-            onChange={(_, page) => {
-              setPage(page);
-            }}
-          />
-        </Grid2>
-      )}
-    </>
+                        <Typography>{`Age: ${dog.age === 0 ? "< 1" : dog.age} ${
+                          dog.age <= 1 ? "year" : "years"
+                        }`}</Typography>
+                        <Typography>{`Zip: ${dog.zip_code}`}</Typography>
+                      </Grid>
+                    </Grid>
+                    <Grid
+                      container
+                      item
+                      xs={1}
+                      justifyContent="center"
+                      alignContent="center"
+                    >
+                      <IconButton
+                        sx={{ height: "34px", width: "34px" }}
+                        size="small"
+                        onClick={() => {
+                          const selectedDogIdx = findIndex(
+                            selectedDogs,
+                            (selectedDog) => selectedDog.id === dog.id
+                          );
+                          if (selectedDogIdx === -1) {
+                            setSelectedDogs([dog, ...selectedDogs]);
+                          } else {
+                            setSelectedDogs([
+                              ...selectedDogs.splice(selectedDogIdx),
+                            ]);
+                          }
+                        }}
+                      >
+                        <AddIcon />
+                      </IconButton>
+                    </Grid>
+                  </Grid>
+                </Paper>
+              </ListItem>
+            ))}
+          </List>
+        </Grid>
+
+        {Math.floor(count / PageSize) > 0 && (
+          <Grid item>
+            <Pagination
+              page={page}
+              count={Math.floor(count / PageSize)}
+              onChange={(_, page) => {
+                setPage(page);
+              }}
+            />
+          </Grid>
+        )}
+      </Grid>
+      <Grid container item xs={5}></Grid>
+    </Grid>
   );
 };

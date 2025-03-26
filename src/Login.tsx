@@ -1,4 +1,4 @@
-import { Button, Grid2, TextField } from "@mui/material";
+import { Button, Grid, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { HandleLogin } from "./hooks/useAuth";
 
@@ -12,23 +12,23 @@ export const Login: React.FC<LoginProps> = ({ handleLogin }) => {
 
   return (
     <>
-      <Grid2>
+      <Grid>
         <TextField
           label="Name"
           onChange={(e) => {
             setName(e.target.value);
           }}
         />
-      </Grid2>
-      <Grid2>
+      </Grid>
+      <Grid>
         <TextField
           label="Email"
           onChange={(e) => {
             setEmail(e.target.value);
           }}
         />
-      </Grid2>
-      <Grid2>
+      </Grid>
+      <Grid>
         <Button
           onClick={() => {
             handleLogin({ name, email });
@@ -36,7 +36,7 @@ export const Login: React.FC<LoginProps> = ({ handleLogin }) => {
         >
           Log In
         </Button>
-      </Grid2>
+      </Grid>
     </>
   );
 };
