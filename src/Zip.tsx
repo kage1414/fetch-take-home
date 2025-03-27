@@ -22,23 +22,20 @@ export const Zip: FC<ZipProps> = ({
       <TextField
         label="Zip Code"
         value={currentZipCode}
-        slotProps={{
-          input: {
-            endAdornment: (
-              <IconButton
-                disabled={
-                  currentZipCode.length !== 5 ||
-                  zipCodes.includes(currentZipCode)
-                }
-                onClick={() => {
-                  handleSetZipCodes([...zipCodes, currentZipCode]);
-                  handleSetCurrentZipCode("");
-                }}
-              >
-                <AddIcon />
-              </IconButton>
-            ),
-          },
+        InputProps={{
+          endAdornment: (
+            <IconButton
+              disabled={
+                currentZipCode.length !== 5 || zipCodes.includes(currentZipCode)
+              }
+              onClick={() => {
+                handleSetZipCodes([...zipCodes, currentZipCode]);
+                handleSetCurrentZipCode("");
+              }}
+            >
+              <AddIcon />
+            </IconButton>
+          ),
         }}
         onKeyDown={(e) => {
           if (
