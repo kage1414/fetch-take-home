@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
 import { useAuth } from "./hooks/useAuth";
-import { Login } from "./Login";
-import { Dogs } from "./Dogs";
+import { Login } from "./Components/Login";
+import { Dogs } from "./Components/Dogs";
 
 export const BaseUrl = "https://frontend-take-home-service.fetch.com";
 

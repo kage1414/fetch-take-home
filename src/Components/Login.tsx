@@ -1,6 +1,6 @@
 import { Button, Grid, TextField } from "@mui/material";
 import React, { useState } from "react";
-import { HandleLogin } from "./hooks/useAuth";
+import { HandleLogin } from "../hooks/useAuth";
 
 interface LoginProps {
   handleLogin: HandleLogin;

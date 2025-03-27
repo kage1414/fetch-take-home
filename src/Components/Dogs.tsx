@@ -1,6 +1,6 @@
 import { Grid, Typography } from "@mui/material";
 import axios from "axios";
-import { BaseUrl } from "./App";
+import { BaseUrl } from "../App";
 import { useCallback, useEffect, useState } from "react";
 import { useDebounce } from "@uidotdev/usehooks";
 import { Match } from "./Match";

@@ -4,7 +4,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import { Dog } from "./Dogs";
 import { findIndex } from "lodash";
 import axios from "axios";
-import { BaseUrl } from "./App";
+import { BaseUrl } from "../App";
 
 interface MatchPoolProps {
   selectedDogs: Dog[];
