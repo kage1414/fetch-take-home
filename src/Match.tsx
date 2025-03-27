@@ -10,7 +10,7 @@ export const Match: FC<MatchProps> = ({ matchedDog }) => (
   <Grid
     container
     item
-    xs={6}
+    xs={5}
     padding={4}
     direction="column"
     alignItems="center"
@@ -27,7 +27,7 @@ export const Match: FC<MatchProps> = ({ matchedDog }) => (
       xs={10}
     >
       <Grid item>
-        <img src={matchedDog.img} style={{ maxWidth: 150 }} />
+        <img src={matchedDog.img} style={{ maxHeight: 170 }} />
       </Grid>
       <Grid item>
         <Typography variant="h5">{matchedDog.name}</Typography>

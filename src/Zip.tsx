@@ -1,4 +1,4 @@
-import { Chip, IconButton, TextField } from "@mui/material";
+import { Box, Chip, IconButton, TextField } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { FC } from "react";
 
@@ -18,10 +18,11 @@ export const Zip: FC<ZipProps> = ({
   handleSetCurrentZipCode,
 }) => {
   return (
-    <>
+    <Box padding={1}>
       <TextField
         label="Zip Code"
         value={currentZipCode}
+        sx={{ marginBottom: 1 }}
         InputProps={{
           endAdornment: (
             <IconButton
@@ -71,6 +72,6 @@ export const Zip: FC<ZipProps> = ({
           }}
         />
       ))}
-    </>
+    </Box>
   );
 };

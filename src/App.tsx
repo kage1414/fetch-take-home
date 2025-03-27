@@ -15,6 +15,7 @@ function App() {
       width="100vw"
       alignContent="center"
       justifyContent="center"
+      direction="column"
     >
       {isAuthenticated ? <Dogs /> : <Login handleLogin={handleLogin} />}
     </Grid>

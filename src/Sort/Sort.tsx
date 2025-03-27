@@ -1,6 +1,7 @@
 import { Dispatch, FC, useEffect, useState } from "react";
 import { Sort } from "./constants";
 import {
+  Box,
   FormControl,
   IconButton,
   InputLabel,
@@ -22,7 +23,7 @@ export const SortBy: FC<SortProps> = ({ setSort }) => {
     setSort(`${sortBy}:${direction}`);
   });
   return (
-    <div>
+    <Box padding={1}>
       <FormControl>
         <InputLabel htmlFor="sort-by">Sort By</InputLabel>
         <Select
@@ -45,6 +46,6 @@ export const SortBy: FC<SortProps> = ({ setSort }) => {
       >
         {direction === "asc" ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />}
       </IconButton>
-    </div>
+    </Box>
   );
 };
