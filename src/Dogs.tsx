@@ -24,8 +24,9 @@ import ClearIcon from "@mui/icons-material/Clear";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { findIndex } from "lodash";
+import { Match } from "./Match";
 
-interface Dog {
+export interface Dog {
   id: string;
   img: string;
   name: string;
@@ -285,69 +286,40 @@ export const Dogs = () => {
           </Grid>
         )}
       </Grid>
-      <Grid container item xs={5} padding={4} direction="column">
-        <Grid container item gap={3}>
-          <Typography variant="h4">Match Pool</Typography>
-          <Button onClick={matchWithDog} disabled={selectedDogs.length === 0}>
-            Match
-          </Button>
-        </Grid>
-        {matchedDog && (
-          <Grid item>
-            <Paper style={{ padding: 4 }} sx={{ width: "100%" }}>
-              <Grid container xs={12}>
-                <Grid container item xs={11} direction="row" columnSpacing={8}>
-                  <Grid
-                    item
-                    container
-                    alignContent="center"
-                    justifyContent="center"
-                    xs={4}
-                  >
-                    <img src={matchedDog.img} style={{ maxWidth: 80 }} />
-                  </Grid>
-                  <Grid
-                    container
-                    item
-                    xs={7}
-                    direction="column"
-                    justifyContent="center"
-                  >
-                    <Typography variant="h5">{matchedDog.name}</Typography>
-                    <Typography>{matchedDog.breed}</Typography>
-                    <Typography>{`Age: ${
-                      matchedDog.age === 0 ? "< 1" : matchedDog.age
-                    } ${matchedDog.age <= 1 ? "year" : "years"}`}</Typography>
-                    <Typography>{`Zip: ${matchedDog.zip_code}`}</Typography>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Paper>
+      <Grid container item direction="column" xs={5}>
+        <Grid container item xs={6} padding={4} direction="column">
+          <Grid container item gap={3}>
+            <Typography variant="h4">Match Pool</Typography>
+            <Button onClick={matchWithDog} disabled={selectedDogs.length === 0}>
+              Match
+            </Button>
           </Grid>
-        )}
-        {selectedDogs.map((dog, idx) => {
-          const selectedDogIdx = findIndex(
-            selectedDogs,
-            (selectedDog) => selectedDog.id === dog.id
-          );
-          return (
-            <Grid container item key={`${dog.id}-${idx}`}>
-              <IconButton
-                sx={{ height: "34px", width: "34px" }}
-                size="small"
-                onClick={() => {
-                  selectedDogs.splice(selectedDogIdx, 1);
-                  setSelectedDogs([...selectedDogs]);
-                }}
-              >
-                <Tooltip title="Remove from match pool">
-                  <RemoveIcon />
-                </Tooltip>
-              </IconButton>
-              <Typography variant="h6">{dog.name}</Typography>
-            </Grid>
-          );
-        })}
+
+          {selectedDogs.map((dog, idx) => {
+            const selectedDogIdx = findIndex(
+              selectedDogs,
+              (selectedDog) => selectedDog.id === dog.id
+            );
+            return (
+              <Grid container item key={`${dog.id}-${idx}`}>
+                <IconButton
+                  sx={{ height: "34px", width: "34px" }}
+                  size="small"
+                  onClick={() => {
+                    selectedDogs.splice(selectedDogIdx, 1);
+                    setSelectedDogs([...selectedDogs]);
+                  }}
+                >
+                  <Tooltip title="Remove from match pool">
+                    <RemoveIcon />
+                  </Tooltip>
+                </IconButton>
+                <Typography variant="h6">{dog.name}</Typography>
+              </Grid>
+            );
+          })}
+        </Grid>
+        {matchedDog && <Match matchedDog={matchedDog} />}
       </Grid>
     </Grid>
   );
