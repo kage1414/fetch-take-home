@@ -18,3 +18,13 @@ After cloning the git repository:
 
 Run `yarn build` to create a production-optimized build.
 Run `yarn start` to start the application.
+
+## Using the App
+
+Sign in with your name and email address (note: this needs to be a valid email to successfully log in).
+
+Apply any applicable filters.
+
+Select any dogs you may be interested in adopting.
+
+Click "Match" and the application will match you with a dog!
