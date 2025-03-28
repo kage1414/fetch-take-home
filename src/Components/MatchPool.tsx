@@ -34,14 +34,20 @@ export const MatchPool: FC<MatchPoolProps> = ({
   };
   return (
     <>
-      <Grid container padding={4} gap={3} direction="row">
+      <Grid container padding={2} direction="column" alignContent="center">
         <Grid item>
           <Typography variant="h4">Match Pool</Typography>
         </Grid>
         <Grid item>
-          <Button onClick={matchWithDog} disabled={selectedDogs.length === 0}>
-            Match
-          </Button>
+          <Grid container justifyContent="center">
+            <Button
+              onClick={matchWithDog}
+              disabled={selectedDogs.length === 0}
+              color="secondary"
+            >
+              Match
+            </Button>
+          </Grid>
         </Grid>
       </Grid>
       <Grid item xs={11} padding={1}>

@@ -23,7 +23,12 @@ export const SortBy: FC<SortProps> = ({ setSort }) => {
     setSort(`${sortBy}:${direction}`);
   });
   return (
-    <Box padding={1}>
+    <Box
+      padding={1}
+      display="flex"
+      alignItems="center"
+      justifyContent="space-between"
+    >
       <FormControl>
         <InputLabel htmlFor="sort-by">Sort By</InputLabel>
         <Select
