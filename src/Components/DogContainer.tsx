@@ -33,7 +33,6 @@ export const DogContainer: FC<DogContainerProps> = ({ children }) => (
         borderRadius: 4,
         borderWidth: 1,
         backgroundColor: "#fff",
-        padding: 2,
       }}
     >
       {children}

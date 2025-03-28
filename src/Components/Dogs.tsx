@@ -102,7 +102,14 @@ export const Dogs = () => {
 
   return (
     <>
-      <Grid container item justifyContent="center">
+      <Grid
+        container
+        item
+        justifyContent="center"
+        alignContent="center"
+        textAlign="center"
+        padding={2}
+      >
         <Typography variant="h3">Dog Matcher 6000</Typography>
       </Grid>
       <Grid container item direction="row" height="calc(100vh - 200px)" xs={1}>

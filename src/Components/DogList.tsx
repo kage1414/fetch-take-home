@@ -58,7 +58,7 @@ export const DogList: FC<DogListProps> = ({
               <ListItem key={`${dog.id}-${idx}`} style={{ width: "100%" }}>
                 <Grid item xs={12}>
                   <DogContainer>
-                    <Grid container>
+                    <Grid container padding={2}>
                       <Grid
                         container
                         item
@@ -134,8 +134,9 @@ export const DogList: FC<DogListProps> = ({
         </List>
       </Grid>
       {showPagination && (
-        <Grid item>
+        <Grid item padding={1}>
           <Pagination
+            color="secondary"
             page={page}
             count={Math.floor(count / pageSize)}
             onChange={(_, page) => {

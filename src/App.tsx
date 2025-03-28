@@ -14,8 +14,6 @@ function App() {
       container
       height="100vh"
       width="100vw"
-      alignContent="center"
-      justifyContent="center"
       direction="column"
       sx={{ background: lighten(theme.palette.primary.main, 0.9) }}
     >

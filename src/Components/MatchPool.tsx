@@ -1,4 +1,12 @@
-import { Button, Grid, IconButton, Tooltip, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Grid,
+  IconButton,
+  lighten,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import { FC } from "react";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { Dog } from "./Dogs";
@@ -33,7 +41,15 @@ export const MatchPool: FC<MatchPoolProps> = ({
       });
   };
   return (
-    <>
+    <Box
+      sx={{
+        backgroundColor: lighten(theme.palette.primary.main, 0.95),
+        borderRadius: theme.shape.borderRadius,
+        margin: 1,
+        borderColor: theme.palette.secondary.main,
+        borderStyle: "solid",
+      }}
+    >
       <Grid container padding={2} direction="column" alignContent="center">
         <Grid item>
           <Typography variant="h4">Match Pool</Typography>
@@ -117,6 +133,6 @@ export const MatchPool: FC<MatchPoolProps> = ({
           )}
         </Grid>
       </Grid>
-    </>
+    </Box>
   );
 };

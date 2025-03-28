@@ -4,6 +4,7 @@ import {
   FormControl,
   IconButton,
   InputLabel,
+  lighten,
   MenuItem,
   Select,
   Slider,
@@ -12,6 +13,7 @@ import {
 import { SortBy } from "./Sort/Sort";
 import ClearIcon from "@mui/icons-material/Clear";
 import { Zip } from "./Zip";
+import theme from "../theme";
 
 interface FiltersProps {
   setSort: Dispatch<SetStateAction<string>>;
@@ -39,7 +41,16 @@ export const Filters: FC<FiltersProps> = ({
   currentZipCode,
 }) => {
   return (
-    <>
+    <Box
+      sx={{
+        backgroundColor: lighten(theme.palette.primary.main, 0.95),
+        borderRadius: 2,
+        margin: 1,
+        borderColor: theme.palette.secondary.main,
+        borderStyle: "solid",
+        padding: 2,
+      }}
+    >
       <Box marginBottom={2}>
         <Typography variant="h6">Filters</Typography>
       </Box>
@@ -104,6 +115,6 @@ export const Filters: FC<FiltersProps> = ({
           setZipCodes(zipCodes);
         }}
       />
-    </>
+    </Box>
   );
 };
