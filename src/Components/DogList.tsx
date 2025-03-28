@@ -6,6 +6,7 @@ import {
   ListItem,
   Pagination,
   Paper,
+  SvgIcon,
   Tooltip,
   Typography,
 } from "@mui/material";
@@ -13,7 +14,7 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { Dog } from "./Dogs";
 import { findIndex } from "lodash";
-
+import PetsIcon from "@mui/icons-material/Pets";
 interface DogListProps {
   dogs: Dog[];
   selectedDogs: Dog[];
@@ -65,12 +66,15 @@ export const DogList: FC<DogListProps> = ({
                       direction="row"
                       columnSpacing={8}
                     >
+                      <Grid item xs={1}>
+                        <PetsIcon />
+                      </Grid>
                       <Grid
                         item
                         container
                         alignContent="center"
                         justifyContent="center"
-                        xs={4}
+                        xs={3}
                       >
                         <img src={dog.img} style={{ maxWidth: 80 }} />
                       </Grid>
@@ -81,7 +85,7 @@ export const DogList: FC<DogListProps> = ({
                         direction="column"
                         justifyContent="center"
                       >
-                        <Typography variant="h5">{dog.name}</Typography>
+                        <Typography variant="h6">{dog.name}</Typography>
                         <Typography>{dog.breed}</Typography>
                         <Typography>{`Age: ${dog.age === 0 ? "< 1" : dog.age} ${
                           dog.age <= 1 ? "year" : "years"

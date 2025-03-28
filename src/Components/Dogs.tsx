@@ -3,7 +3,6 @@ import axios from "axios";
 import { BaseUrl } from "../App";
 import { useCallback, useEffect, useState } from "react";
 import { useDebounce } from "@uidotdev/usehooks";
-import { Match } from "./Match";
 import { MatchPool } from "./MatchPool";
 import { DogList } from "./DogList";
 import { Filters } from "./Filters";
@@ -97,6 +96,10 @@ export const Dogs = () => {
     getBreeds();
   }, []);
 
+  useEffect(() => {
+    console.log(matchedDog);
+  }, [matchedDog]);
+
   return (
     <>
       <Grid container item justifyContent="center">
@@ -132,18 +135,20 @@ export const Dogs = () => {
             page={page}
           />
         </Grid>
-        <Grid container item direction="column" xs={5}>
-          <MatchPool
-            selectedDogs={selectedDogs}
-            handleSetMatchedDog={(dog) => {
-              setMatchedDog(dog);
-            }}
-            handleSetSelectedDogs={(dogs) => {
-              setSelectedDogs(dogs);
-            }}
-            matchDogIdsToDogs={matchDogIdsToDogs}
-          />
-          {matchedDog && <Match matchedDog={matchedDog} />}
+        <Grid item xs={5}>
+          <Grid container direction="column">
+            <MatchPool
+              selectedDogs={selectedDogs}
+              handleSetMatchedDog={(dog) => {
+                setMatchedDog(dog);
+              }}
+              handleSetSelectedDogs={(dogs) => {
+                setSelectedDogs(dogs);
+              }}
+              matchDogIdsToDogs={matchDogIdsToDogs}
+              matchedDog={matchedDog}
+            />
+          </Grid>
         </Grid>
       </Grid>
     </>
