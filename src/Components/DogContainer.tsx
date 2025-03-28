@@ -28,8 +28,6 @@ export const DogContainer: FC<DogContainerProps> = ({ children }) => (
   >
     <Box
       sx={{
-        width: "100%",
-        height: "100%",
         borderRadius: 4,
         borderWidth: 1,
         backgroundColor: "#fff",

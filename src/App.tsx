@@ -16,6 +16,8 @@ function App() {
       width="100vw"
       direction="column"
       sx={{ background: lighten(theme.palette.primary.main, 0.9) }}
+      justifyContent={isAuthenticated ? "normal" : "center"}
+      alignContent={isAuthenticated ? "normal" : "center"}
     >
       {isAuthenticated ? <Dogs /> : <Login handleLogin={handleLogin} />}
     </Grid>

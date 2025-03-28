@@ -12,7 +12,7 @@ export const Login: React.FC<LoginProps> = ({ handleLogin }) => {
 
   return (
     <Grid container item direction="column" alignContent="center">
-      <Grid item>
+      <Grid item marginBottom={1}>
         <TextField
           label="Name"
           onChange={(e) => {
@@ -20,7 +20,7 @@ export const Login: React.FC<LoginProps> = ({ handleLogin }) => {
           }}
         />
       </Grid>
-      <Grid item>
+      <Grid item marginBottom={1}>
         <TextField
           label="Email"
           onChange={(e) => {
