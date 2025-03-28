@@ -1,17 +1,12 @@
-import {
-  Button,
-  Divider,
-  Grid,
-  IconButton,
-  Tooltip,
-  Typography,
-} from "@mui/material";
+import { Button, Grid, IconButton, Tooltip, Typography } from "@mui/material";
 import { FC } from "react";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { Dog } from "./Dogs";
 import { findIndex } from "lodash";
 import axios from "axios";
 import { BaseUrl } from "../App";
+import { DogContainer } from "./DogContainer";
+import theme from "../theme";
 
 interface MatchPoolProps {
   selectedDogs: Dog[];
@@ -49,7 +44,6 @@ export const MatchPool: FC<MatchPoolProps> = ({
           </Button>
         </Grid>
       </Grid>
-      <Divider />
       <Grid item xs={11} padding={1}>
         <Grid container>
           <Grid item xs={5} padding={4} direction="column">
@@ -81,29 +75,38 @@ export const MatchPool: FC<MatchPoolProps> = ({
           </Grid>
           {matchedDog && (
             <Grid item xs={7}>
-              <Grid
-                container
-                justifyContent="space-between"
-                alignItems="center"
-                direction="column"
-              >
-                <Grid item>
-                  <Typography variant="h4" textAlign="center">
-                    You've been matched with...
-                  </Typography>
+              <DogContainer>
+                <Grid
+                  container
+                  justifyContent="space-between"
+                  alignItems="center"
+                  direction="column"
+                  padding={2}
+                >
+                  <Grid item>
+                    <Typography
+                      variant="h5"
+                      textAlign="center"
+                      color={theme.palette.secondary.main}
+                    >
+                      You've been matched with...
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    <img src={matchedDog.img} style={{ maxHeight: 170 }} />
+                  </Grid>
+                  <Grid item>
+                    <Typography variant="h5" color={theme.palette.primary.main}>
+                      {matchedDog.name}
+                    </Typography>
+                    <Typography>{matchedDog.breed}</Typography>
+                    <Typography>{`Age: ${
+                      matchedDog.age === 0 ? "< 1" : matchedDog.age
+                    } ${matchedDog.age <= 1 ? "year" : "years"}`}</Typography>
+                    <Typography>{`Zip: ${matchedDog.zip_code}`}</Typography>
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <img src={matchedDog.img} style={{ maxHeight: 170 }} />
-                </Grid>
-                <Grid item>
-                  <Typography variant="h5">{matchedDog.name}</Typography>
-                  <Typography>{matchedDog.breed}</Typography>
-                  <Typography>{`Age: ${
-                    matchedDog.age === 0 ? "< 1" : matchedDog.age
-                  } ${matchedDog.age <= 1 ? "year" : "years"}`}</Typography>
-                  <Typography>{`Zip: ${matchedDog.zip_code}`}</Typography>
-                </Grid>
-              </Grid>
+              </DogContainer>
             </Grid>
           )}
         </Grid>

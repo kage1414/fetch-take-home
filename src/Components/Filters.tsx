@@ -91,6 +91,7 @@ export const Filters: FC<FiltersProps> = ({
               setAgeRange(range);
             }
           }}
+          color="secondary"
         />
       </Box>
       <Zip

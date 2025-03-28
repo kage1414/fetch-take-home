@@ -5,8 +5,6 @@ import {
   List,
   ListItem,
   Pagination,
-  Paper,
-  SvgIcon,
   Tooltip,
   Typography,
 } from "@mui/material";
@@ -15,6 +13,8 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import { Dog } from "./Dogs";
 import { findIndex } from "lodash";
 import PetsIcon from "@mui/icons-material/Pets";
+import theme from "../theme";
+import { DogContainer } from "./DogContainer";
 interface DogListProps {
   dogs: Dog[];
   selectedDogs: Dog[];
@@ -35,7 +35,6 @@ export const DogList: FC<DogListProps> = ({
   handleSetPage,
 }) => {
   const showPagination = Math.floor(count / pageSize) > 0;
-
   return (
     <>
       <Grid
@@ -57,74 +56,78 @@ export const DogList: FC<DogListProps> = ({
             );
             return (
               <ListItem key={`${dog.id}-${idx}`} style={{ width: "100%" }}>
-                <Paper style={{ padding: 4 }} sx={{ width: "100%" }}>
-                  <Grid container xs={12}>
-                    <Grid
-                      container
-                      item
-                      xs={11}
-                      direction="row"
-                      columnSpacing={8}
-                    >
-                      <Grid item xs={1}>
-                        <PetsIcon />
+                <Grid item xs={12}>
+                  <DogContainer>
+                    <Grid container>
+                      <Grid
+                        container
+                        item
+                        xs={9}
+                        direction="row"
+                        columnSpacing={8}
+                      >
+                        <Grid item xs={1}>
+                          <PetsIcon
+                            sx={{ color: theme.palette.primary.main }}
+                          />
+                        </Grid>
+                        <Grid
+                          item
+                          container
+                          alignContent="center"
+                          justifyContent="center"
+                          xs={3}
+                        >
+                          <img src={dog.img} style={{ maxWidth: 80 }} />
+                        </Grid>
+                        <Grid
+                          container
+                          item
+                          xs={6}
+                          direction="column"
+                          justifyContent="center"
+                        >
+                          <Typography variant="h6">{dog.name}</Typography>
+                          <Typography>{dog.breed}</Typography>
+                          <Typography>{`Age: ${
+                            dog.age === 0 ? "< 1" : dog.age
+                          } ${dog.age <= 1 ? "year" : "years"}`}</Typography>
+                          <Typography>{`Zip: ${dog.zip_code}`}</Typography>
+                        </Grid>
                       </Grid>
                       <Grid
-                        item
                         container
-                        alignContent="center"
-                        justifyContent="center"
+                        item
                         xs={3}
-                      >
-                        <img src={dog.img} style={{ maxWidth: 80 }} />
-                      </Grid>
-                      <Grid
-                        container
-                        item
-                        xs={7}
-                        direction="column"
                         justifyContent="center"
+                        alignContent="center"
                       >
-                        <Typography variant="h6">{dog.name}</Typography>
-                        <Typography>{dog.breed}</Typography>
-                        <Typography>{`Age: ${dog.age === 0 ? "< 1" : dog.age} ${
-                          dog.age <= 1 ? "year" : "years"
-                        }`}</Typography>
-                        <Typography>{`Zip: ${dog.zip_code}`}</Typography>
+                        <IconButton
+                          sx={{ height: "34px", width: "34px" }}
+                          size="small"
+                          onClick={() => {
+                            if (selectedDogIdx === -1) {
+                              handleSetSelectedDogs([dog, ...selectedDogs]);
+                            } else {
+                              selectedDogs.splice(selectedDogIdx, 1);
+                              handleSetSelectedDogs([...selectedDogs]);
+                            }
+                          }}
+                        >
+                          {selectedDogIdx === -1 ? (
+                            <Tooltip title="Add to match pool">
+                              <AddIcon />
+                            </Tooltip>
+                          ) : (
+                            <Tooltip title="Remove from match pool">
+                              <RemoveIcon />
+                            </Tooltip>
+                          )}
+                        </IconButton>
                       </Grid>
                     </Grid>
-                    <Grid
-                      container
-                      item
-                      xs={1}
-                      justifyContent="center"
-                      alignContent="center"
-                    >
-                      <IconButton
-                        sx={{ height: "34px", width: "34px" }}
-                        size="small"
-                        onClick={() => {
-                          if (selectedDogIdx === -1) {
-                            handleSetSelectedDogs([dog, ...selectedDogs]);
-                          } else {
-                            selectedDogs.splice(selectedDogIdx, 1);
-                            handleSetSelectedDogs([...selectedDogs]);
-                          }
-                        }}
-                      >
-                        {selectedDogIdx === -1 ? (
-                          <Tooltip title="Add to match pool">
-                            <AddIcon />
-                          </Tooltip>
-                        ) : (
-                          <Tooltip title="Remove from match pool">
-                            <RemoveIcon />
-                          </Tooltip>
-                        )}
-                      </IconButton>
-                    </Grid>
-                  </Grid>
-                </Paper>
+                  </DogContainer>
+                </Grid>
               </ListItem>
             );
           })}
