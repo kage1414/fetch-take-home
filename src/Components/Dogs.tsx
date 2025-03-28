@@ -6,6 +6,7 @@ import { useDebounce } from "@uidotdev/usehooks";
 import { MatchPool } from "./MatchPool";
 import { DogList } from "./DogList";
 import { Filters } from "./Filters";
+import theme from "../theme";
 
 export interface Dog {
   id: string;
@@ -110,7 +111,9 @@ export const Dogs = () => {
         textAlign="center"
         padding={2}
       >
-        <Typography variant="h3">Dog Matcher 6000</Typography>
+        <Typography variant="h3" color={theme.palette.primary.main}>
+          Dog Matcher 6000
+        </Typography>
       </Grid>
       <Grid container item direction="row" height="calc(100vh - 200px)" xs={1}>
         <Grid container item direction="column" padding={4} xs={2}>

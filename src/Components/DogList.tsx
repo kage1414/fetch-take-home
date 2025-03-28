@@ -87,7 +87,12 @@ export const DogList: FC<DogListProps> = ({
                           direction="column"
                           justifyContent="center"
                         >
-                          <Typography variant="h6">{dog.name}</Typography>
+                          <Typography
+                            variant="h6"
+                            color={theme.palette.primary.main}
+                          >
+                            {dog.name}
+                          </Typography>
                           <Typography>{dog.breed}</Typography>
                           <Typography>{`Age: ${
                             dog.age === 0 ? "< 1" : dog.age
