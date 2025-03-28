@@ -97,10 +97,6 @@ export const Dogs = () => {
     getBreeds();
   }, []);
 
-  useEffect(() => {
-    console.log(matchedDog);
-  }, [matchedDog]);
-
   return (
     <>
       <Grid
